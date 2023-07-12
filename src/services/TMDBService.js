@@ -6,21 +6,14 @@ export default {
   getPopularMovies: () => moviedb.moviePopular(),
   getMovieDetails: (id) => moviedb.movieInfo({ id }), 
   getPopularTVShows: () => moviedb.tvPopular(), 
-  getTVShowDetails: (id) => moviedb.tvInfo({ id }),
   searchMovies: (query) => moviedb.searchMovie({ query }),
-  searchTVShows: (query) => moviedb.searchTv({ query }),
   getMoviesByGenre: (genreId) => moviedb.discoverMovie({ with_genres: genreId }),
-  getTVShowsByGenre: (genreId) => moviedb.discoverTv({ with_genres: genreId }), 
   getMovieGenres: () => moviedb.genreMovieList(),
-  getTVGenres: () => moviedb.genreTvList(), 
   getMovieImages: (id) => moviedb.movieImages(id),
-  getTVShowImages: (id) => moviedb.tvImages(id),
   getMovieRecommendations: (id) => moviedb.movieRecommendations({ id }),
-  getTVRecommendations: (id) => moviedb.tvRecommendations({ id }),
   getUpcomingMovies:() => moviedb.upcomingMovies(),
   getTopRatedMovies: () => moviedb.movieTopRated(),
   getReviews: (id) => moviedb.movieReviews(id),
-
 };
 /*
 complete function list
