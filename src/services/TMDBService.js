@@ -15,6 +15,34 @@ export default {
   getTopRatedMovies: () => moviedb.movieTopRated(),
   getReviews: (id) => moviedb.movieReviews(id),
 };
+export function sortItems(items, sort) {
+    switch (sort) {
+      case 'popular':
+        return items.sort((a, b) => a.popularity - b.popularity);
+      case 'topRated':
+        return items.sort((a, b) => b.vote_average - a.vote_average);
+      case 'mostVoted':
+        return items.sort((a, b) => b.vote_count - a.vote_count);
+      case 'chronological':
+        return items.sort((a,b) => {
+          const itemADate = new Date(a.release_date || a.first_air_date);
+          const itemBDate = new Date(b.release_date || b.first_air_date);
+          return itemBDate - itemADate;
+        });
+      case 'alphabetical':
+        return items.sort((a, b) => {
+          const itemA = a.title || a.name;
+          const itemB = b.title || b.name;
+          if (itemA && itemB) {
+            return itemA.localeCompare(itemB);
+          } else {
+            return 0;
+          }
+        });
+      default:
+        return items;
+    }
+  }
 /*
 complete function list
 Function
