@@ -3,9 +3,9 @@ import InputGroup from 'react-bootstrap/InputGroup'
 import ToggleButton from 'react-bootstrap/ToggleButton'
 import ToggleButtonGroup from 'react-bootstrap/ToggleButtonGroup'
 
-function Input({type, name, placeholder, options, required, onChange, minlength, errors}) {
+function Input({type, name, placeholder, options, required, onChange, minLength, inputs}) {
   return (
-    <Form.Group className="mb-3" controlId="formBasicEmail">
+    <Form.Group className="mb-3" controlId={name}>
       <InputGroup>
         <InputGroup.Text id="basic-addon1">{name}</InputGroup.Text>  
         {
@@ -44,12 +44,12 @@ function Input({type, name, placeholder, options, required, onChange, minlength,
               placeholder={placeholder?placeholder:`Enter ${name}`} 
               onChange={onChange}
               required={required}
-              minlength={minlength}/>
+              minLength={minLength}/>
           )
         }
       </InputGroup>
       <Form.Text className="text-danger">
-        {errors[name]}
+        {inputs[name]?.error}
       </Form.Text>
     </Form.Group>
   )
