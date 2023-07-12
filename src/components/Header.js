@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Navbar, Nav, FormControl, Button } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faFilm, faSearch, faTv, faUser } from '@fortawesome/free-solid-svg-icons';
+import { faFilm, faSearch, faSignInAlt, faHistory, faUser } from '@fortawesome/free-solid-svg-icons';
 
 const Header = () => {
   const [query, setQuery] = useState('');
