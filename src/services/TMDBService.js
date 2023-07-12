@@ -15,6 +15,11 @@ export default {
   getTopRatedMovies: () => moviedb.movieTopRated(),
   getReviews: (id) => moviedb.movieReviews(id),
 };
+
+export function moviePoster(poster_path){
+    return `https://image.tmdb.org/t/p/w500${poster_path}`;
+};
+
 export function sortItems(items, sort) {
     switch (sort) {
       case 'popular':
