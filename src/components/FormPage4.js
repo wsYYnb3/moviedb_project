@@ -13,8 +13,8 @@ function FormPage4({changeHandler, inputs}) {
         </div>
         <hr />
       </Row>
-      <Row>
-        <Col>
+      <Row className="justify-content-md-center">
+        <Col md="auto">
           <Input 
             name="Choose a voice for screen reader" 
             options={["English", "Spanish"]}

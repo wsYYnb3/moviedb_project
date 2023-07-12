@@ -23,7 +23,7 @@ function Input({type, name, placeholder, options, required, onChange, minLength,
                     onChange={onChange}
                     value={o} 
                     required={required}/>
-                  <label className="btn btn-secondary" htmlFor={`radio-${i}`}>{o}</label>
+                  <label className="btn btn-light" htmlFor={`radio-${i}`}>{o}</label>
                 </>
               ))}
             </div>
@@ -32,7 +32,9 @@ function Input({type, name, placeholder, options, required, onChange, minLength,
             <Form.Select 
               name={name} 
               onChange={onChange} 
-              required={required}>
+              required={required}
+              variant="light"
+            >
               <option value="">{placeholder?placeholder:`Enter ${name}`}</option>
               {options.map((o,i)=><option key={i} value={o}>{o}</option> )}
             </Form.Select>
@@ -43,6 +45,7 @@ function Input({type, name, placeholder, options, required, onChange, minLength,
               name={name}
               placeholder={placeholder?placeholder:`Enter ${name}`} 
               onChange={onChange}
+              variant="light"
               required={required}
               minLength={minLength}/>
           )

@@ -1,16 +1,16 @@
 import React from 'react';
-import { useRef } from 'react';
 import { Container } from 'react-bootstrap'
 import FormPage1 from '../components/FormPage1'
 import FormPage2 from '../components/FormPage2'
 import FormPage3 from '../components/FormPage3'
 import FormPage4 from '../components/FormPage4'
-import Card from 'react-bootstrap/Alert'
+import Row from 'react-bootstrap/Row'
+import Col from 'react-bootstrap/Col'
 import Button from 'react-bootstrap/Button'
 import Form from 'react-bootstrap/Form'
 import Tabs from 'react-bootstrap/Tabs';
-import { useState } from 'react'
 import Tab from 'react-bootstrap/Tab';
+import { useState, useRef } from 'react'
 
 function SignUpPage() {
   const [inputs, setInputs] = useState({});
@@ -25,7 +25,7 @@ function SignUpPage() {
 
   function changePage(event, step=1){
     if(formRef.current.reportValidity()){
-      setPage(page+step)
+      setPage(parseInt(page)+step)
     }
   }
   function selectPage(p){
@@ -50,7 +50,8 @@ function SignUpPage() {
       <Form ref={formRef} onSubmit={formSubmit} onInvalid={changeHandler}>
         <Tabs
           defaultActiveKey="1"
-          className="mb-3"
+          variant="pills"
+          className="mb-3 justify-content-md-center"
           activeKey={page}
           inputs={inputs}
           onSelect={selectPage}
@@ -68,21 +69,38 @@ function SignUpPage() {
             <FormPage4 changeHandler={changeHandler} inputs={inputs} />
           </Tab>
         </Tabs>
-        {page>1?(
-          <Button onClick={(e)=>changePage(e,-1)}>
-            Last page
-          </Button>
-        ):null}
-        {page<4?(
-          <Button onClick={(e)=>changePage(e)}>
-            Next page
-          </Button>
-        ):null}
-        {page>1?(
-          <Button type="submit">
-            Submit
-          </Button>
-        ):null}
+        <Row className="justify-content-md-center">
+          <Col md="auto">
+            {page>1?(
+              <Button 
+                onClick={(e)=>changePage(e,-1)}
+                className="m-1"
+              >
+                Last page
+              </Button>
+            ):null}
+          </Col>
+          <Col md="auto">
+            {page>1?(
+              <Button 
+                type="submit"
+                className="m-1"
+              >
+                Submit
+              </Button>
+            ):null}
+          </Col>
+          <Col md="auto">
+          {page<4?(
+            <Button 
+              onClick={(e)=>changePage(e)}
+              className="m-1"
+            >
+              Next page
+            </Button>
+          ):null}
+          </Col>
+        </Row>
       </Form>
     </Container>
   );

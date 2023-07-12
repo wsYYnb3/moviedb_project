@@ -13,8 +13,8 @@ function FormPage1({changeHandler, inputs}) {
         </div>
         <hr />
       </Row>
-      <Row>
-        <Col>
+      <Row className="justify-content-md-center">
+        <Col md="auto">
           <Input 
             name="Username" 
             onChange={changeHandler} 
@@ -24,8 +24,8 @@ function FormPage1({changeHandler, inputs}) {
           </Input>
         </Col>
       </Row>
-      <Row>
-        <Col>
+      <Row className="justify-content-md-center">
+        <Col md="auto">
           <Input 
             name="Password" 
             type="password"
@@ -35,8 +35,8 @@ function FormPage1({changeHandler, inputs}) {
           </Input>
         </Col>
       </Row>
-      <Row>
-        <Col>
+      <Row className="justify-content-md-center">
+        <Col md="auto">
           <Input 
             name="Confirm password" 
             type="password"

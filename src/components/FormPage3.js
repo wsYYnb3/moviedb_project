@@ -13,8 +13,8 @@ function FormPage3({changeHandler, inputs}) {
         </div>
         <hr />
       </Row>
-      <Row>
-        <Col>
+      <Row className="justify-content-md-center">
+        <Col md="auto">
           <Input 
             name="What do you want to see in the home page?" 
             options={["Most popular", "Something else"]}
