@@ -9,19 +9,27 @@ function HistoryPage() {
 
   const { currentUser, readUser, removeHistory } = useAuth();
 
-  const history = readUser(currentUser.username).history || null;
+  let history = readUser(currentUser.username).history || null;
+
+  async function loadMovies(){
+    const newMovies = []
+    for(const movie in history){
+      const response = await TMDBService.getMovieDetails(movie)
+      newMovies.push(response)
+    }
+    setMovies(newMovies)
+  }
 
   useEffect(() => {
-    (async ()=>{
-      const newMovies = []
-      for(const movie in history){
-        const response = await TMDBService.getMovieDetails(movie) 
-        newMovies.push(response)
-      }
-      console.log(newMovies)
-      setMovies(newMovies)
-    })()
+    loadMovies()
   }, []);
+
+  function removeMovie(e, id){
+    e.preventDefault()
+    removeHistory(currentUser, id)
+    history = readUser(currentUser.username).history
+    loadMovies()
+  }
 
   return (
     <Container>
@@ -32,7 +40,7 @@ function HistoryPage() {
       <Row>
         {movies.map(movie => (
           <Col xs={12} sm={6} md={4} lg={3} key={movie.id}>
-            <MovieCard movie={movie} />
+            <MovieCard movie={movie} eraseFunction={(e)=>removeMovie(e,movie.id)} />
           </Col>
         ))}
       </Row>

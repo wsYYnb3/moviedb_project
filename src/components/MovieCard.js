@@ -1,11 +1,11 @@
 import React from 'react';
-import { Card } from 'react-bootstrap';
+import { Card, Button } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faStar } from '@fortawesome/free-solid-svg-icons';
+import { faStar, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
 import { moviePoster } from '../services/TMDBService';
 
-const MovieCard = ({ movie }) => {
+const MovieCard = ({ movie, eraseFunction }) => {
     
   return (
     <Link to={`/movies/${movie.id}`}>
@@ -17,6 +17,11 @@ const MovieCard = ({ movie }) => {
             <FontAwesomeIcon icon={faStar} className="mr-1" />
             {movie.vote_average.toFixed(1)}
           </Card.Text>
+          {eraseFunction?(
+            <Button onClick={eraseFunction} variant="primary">
+            <FontAwesomeIcon icon={faTrash} className="mr-1" />
+</Button>
+          ):null}
         </Card.Body>
       </Card>
     </Link>
