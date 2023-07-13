@@ -14,35 +14,31 @@ function FormPage1({changeHandler, inputs}) {
         <hr />
       </Row>
       <Row className="justify-content-md-center">
-        <Col md="auto">
+        <Col md="auto" className="signup-form-field">
           <Input 
             name="Username" 
             onChange={changeHandler} 
-            minLength="2" 
-            inputs={inputs}
-            required>
+            inputs={inputs[1]}>
           </Input>
         </Col>
       </Row>
       <Row className="justify-content-md-center">
-        <Col md="auto">
+        <Col md="auto" className="signup-form-field">
           <Input 
             name="Password" 
             type="password"
             onChange={changeHandler} 
-            inputs={inputs}
-            required>
+            inputs={inputs[1]}>
           </Input>
         </Col>
       </Row>
       <Row className="justify-content-md-center">
-        <Col md="auto">
+        <Col md="auto" className="signup-form-field">
           <Input 
             name="Confirm password" 
             type="password"
             onChange={changeHandler} 
-            inputs={inputs}
-            required>
+            inputs={inputs[1]}>
           </Input>
         </Col>
       </Row>

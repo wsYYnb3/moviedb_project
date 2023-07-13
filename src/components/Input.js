@@ -46,6 +46,7 @@ function Input({type, name, placeholder, options, required, onChange, minLength,
               placeholder={placeholder?placeholder:`Enter ${name}`} 
               onChange={onChange}
               variant="light"
+              value={inputs[name]?.value}
               required={required}
               minLength={minLength}/>
           )

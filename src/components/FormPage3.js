@@ -14,7 +14,7 @@ function FormPage3({changeHandler, inputs}) {
         <hr />
       </Row>
       <Row className="justify-content-md-center">
-        <Col md="auto">
+        <Col md="auto" className="signup-form-field">
           <Input 
             name="What do you want to see in the home page?" 
             options={["Most popular", "Something else"]}

@@ -14,7 +14,7 @@ function FormPage2({changeHandler, inputs}) {
         <hr />
       </Row>
       <Row className="justify-content-md-center">
-        <Col md="auto">
+        <Col md="auto" className="signup-form-field">
           <Input 
             name="Favorite language" 
             onChange={changeHandler} 
@@ -25,7 +25,7 @@ function FormPage2({changeHandler, inputs}) {
         </Col>
       </Row>
       <Row className="justify-content-md-center">
-        <Col md="auto">
+        <Col md="auto" className="signup-form-field">
           <Input 
             name="Favorite genre" 
             options={["comedy", "drama"]}

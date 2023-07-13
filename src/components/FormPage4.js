@@ -14,7 +14,7 @@ function FormPage4({changeHandler, inputs}) {
         <hr />
       </Row>
       <Row className="justify-content-md-center">
-        <Col md="auto">
+        <Col md="auto" className="signup-form-field">
           <Input 
             name="Choose a voice for screen reader" 
             options={["English", "Spanish"]}

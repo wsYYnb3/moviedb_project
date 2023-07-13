@@ -115,3 +115,7 @@
     }
   }
   
+
+  .signup-form-field {
+    min-width: 50%;
+  }

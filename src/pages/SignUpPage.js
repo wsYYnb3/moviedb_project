@@ -13,9 +13,31 @@ import Tab from 'react-bootstrap/Tab';
 import { useState, useRef } from 'react'
 
 function SignUpPage() {
-  const [inputs, setInputs] = useState({});
+  const [inputs, setInputs] = useState({
+    1: {
+      'Username': {name: 'Username', minLength: 2, value: '', error: '', required: true},
+      'Password': {name: 'Password', value: '', error: '', required: true},
+      'Confirm password': {name: 'Confirm password', value: '', error: '', required: true, validation: confirmPassword}
+    },
+    2: {
+      'Username': {value: '', error: '', validation: ()=>false},
+      'Password': {value: '', error: ''},
+    },
+    3: {
+      'Username': {value: '', error: '', validation: ()=>false},
+    },
+
+    4: {
+      'Username': {value: '', error: '', validation: ()=>false},
+    }
+  });
   const [page, setPage] = useState(1);
-  const formRef = useRef(null);
+
+  function confirmPassword(){
+    if(inputs[1]["Password"].value!=this.value)
+      return 'Password confimation must match Password value.'
+    return ''
+  }
 
   function formSubmit(event){
     event.preventDefault()
@@ -23,31 +45,57 @@ function SignUpPage() {
     event.target.reset()
   }
 
+  function reportValidity(){
+    for(const key in inputs[page]){
+      const i = validate(inputs[page][key])
+      if(i){
+        const newInputs = {...inputs}
+        newInputs[page][key].error = i
+        setInputs(newInputs)
+        return false
+      }
+    }
+    return true
+  }
+
+  function validate(input){
+    if(input.required && !input.value){
+      return 'This field cannot be empty'
+    }
+
+    if(input.minLength && input.value.length<input.minLength){
+      return `This field has to be larger than ${input.minLength}. It now has a length of ${input.value.length}`
+    }
+
+    if(input.validation){
+      return input.validation()
+    }
+    return ''
+  }
+
   function changePage(event, step=1){
-    if(formRef.current.reportValidity()){
+    if(reportValidity()){
       setPage(parseInt(page)+step)
     }
   }
+
   function selectPage(p){
-    if(formRef.current.reportValidity()){
+    if(reportValidity()){
       setPage(p)
     }
   }
 
   function changeHandler(event) {
-    event.preventDefault()
+    const newInputs = {...inputs}
     const name = event.target.name
-    const value = event.target.value
-    if(event.target.willValidate){
-      setInputs({...inputs, [name]: {value: value, error: event.target.validationMessage}})
-    } else {
-      setInputs({...inputs, [name]: {value: value, error: ''}})
-    }
+    newInputs[page][name].value = event.target.value
+    newInputs[page][name].error = validate(newInputs[page][name])
+    setInputs(newInputs)
   }
 
   return (
     <Container className="mt-4">
-      <Form ref={formRef} onSubmit={formSubmit} onInvalid={changeHandler}>
+      <Form onSubmit={formSubmit} onInvalid={changeHandler}>
         <Tabs
           defaultActiveKey="1"
           variant="pills"
@@ -76,7 +124,7 @@ function SignUpPage() {
                 onClick={(e)=>changePage(e,-1)}
                 className="m-1"
               >
-                Last page
+                Previous page
               </Button>
             ):null}
           </Col>
@@ -91,14 +139,14 @@ function SignUpPage() {
             ):null}
           </Col>
           <Col md="auto">
-          {page<4?(
-            <Button 
-              onClick={(e)=>changePage(e)}
-              className="m-1"
-            >
-              Next page
-            </Button>
-          ):null}
+            {page<4?(
+              <Button 
+                onClick={(e)=>changePage(e)}
+                className="m-1"
+              >
+                Next page
+              </Button>
+            ):null}
           </Col>
         </Row>
       </Form>
