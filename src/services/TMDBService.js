@@ -14,6 +14,7 @@ export default {
   getUpcomingMovies:() => moviedb.upcomingMovies(),
   getTopRatedMovies: () => moviedb.movieTopRated(),
   getReviews: (id) => moviedb.movieReviews(id),
+  getLanguages: (id) => moviedb.languages(),
 };
 
 export function moviePoster(poster_path){

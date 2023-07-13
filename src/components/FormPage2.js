@@ -7,9 +7,13 @@ import { useEffect, useState } from 'react';
 
 function FormPage2({changeHandler, inputs}) {
   const [genres, setGenres] = useState([])
+  const [languages, setLanguages] = useState([])
   useEffect(() => {
     TMDBService.getMovieGenres()
       .then((response) => setGenres(response.genres))
+      .catch((error) => console.error(error));
+    TMDBService.getLanguages()
+      .then((response) => setLanguages(response))
       .catch((error) => console.error(error));
   }, [])
   return (
@@ -27,6 +31,8 @@ function FormPage2({changeHandler, inputs}) {
             name="Favorite language" 
             onChange={changeHandler} 
             inputs={inputs}
+            type="autocomplete"
+            options={languages}
             >
           </Input>
         </Col>
