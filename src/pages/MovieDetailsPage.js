@@ -53,7 +53,8 @@ const MovieDetailsPage = () => {
         <h2>Reviews</h2>
         {reviews.map((review) => (
           <div key={review.id}>
-            <p>{review.content}<TextToSpeech text={review.content} /> </p>
+            <TextToSpeech text={review.content} />
+            <p>{review.content}</p>
           </div>
         ))}
       </Container>

@@ -17,16 +17,12 @@ const MovieDetails = ({ movie }) => {
             <Card.Body>
               <Card.Title>
                 {movie.title}
-                <TextToSpeech text={movie.title}> 
-                 
-                </TextToSpeech>
               </Card.Title>
+              <TextToSpeech text={movie.title} />
               <Card.Text>
                 {movie.overview}
-                <TextToSpeech text={movie.overview}> 
-                 
-                </TextToSpeech>
               </Card.Text>
+              <TextToSpeech text={movie.overview} /> 
             </Card.Body>
             <ListGroup className="list-group-flush">
               <ListGroupItem>
