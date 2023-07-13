@@ -34,7 +34,7 @@ function SignUpPage() {
     }
   });
   const [page, setPage] = useState(1);
-  const { register } = useAuth();
+  const { register, readUser } = useAuth();
   const navigate = useNavigate();
 
   function confirmPassword(){
@@ -45,7 +45,7 @@ function SignUpPage() {
   }
 
   function checkUserExists(){
-    if(localStorage.getItem(this.value)){
+    if(readUser(this.value)){
       return `Username ${this.value} has already been taken`
     }
     return ''
