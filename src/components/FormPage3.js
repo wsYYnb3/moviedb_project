@@ -17,7 +17,7 @@ function FormPage3({changeHandler, inputs}) {
         <Col md="auto" className="signup-form-field">
           <Input 
             name="What do you want to see in the home page?" 
-            options={["Popular", "Top Rated", "New arrivals"]}
+            options={[{name: "Popular"}, {name: "Top Rated"}, {name: "New arrivals"}]}
             onChange={changeHandler} 
             inputs={inputs}
             >

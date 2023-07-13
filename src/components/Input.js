@@ -36,7 +36,7 @@ function Input({type, name, placeholder, options, required, onChange, minLength,
               variant="light"
             >
               <option value="">{placeholder?placeholder:`Enter ${name}`}</option>
-              {options.map((o,i)=><option key={i} value={o.id}>{o.name}</option> )}
+              {options.map((o,i)=><option key={i} value={o.id?o.id:o.name}>{o.name}</option> )}
             </Form.Select>
           ):(
             <Form.Control 
