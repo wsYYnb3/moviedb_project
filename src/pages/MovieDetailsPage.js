@@ -6,6 +6,7 @@ import ImageGallery from '../components/ImageGallery';
 import MovieCard from '../components/MovieCard';
 import { Container, Row, Col } from 'react-bootstrap';
 import TextToSpeech from '../components/TextToSpeech';
+import { useAuth } from '../contexts/AuthContext';
 
 const MovieDetailsPage = () => {
   const { id } = useParams();
@@ -13,6 +14,11 @@ const MovieDetailsPage = () => {
   const [images, setImages] = useState([]);
   const [recommendations, setRecommendations] = useState([]);
   const [reviews, setReviews] = useState([]);
+
+  const { currentUser, addToHistory } = useAuth();
+  if(currentUser){
+    addToHistory(currentUser, id)
+  }
 
 
   useEffect(() => {

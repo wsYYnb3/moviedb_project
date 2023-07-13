@@ -7,19 +7,19 @@ export const useAuth = () => {
 };
 
 export const AuthProvider = ({ children }) => {
+  const readUser = (username) => {
+    const user = localStorage.getItem(username)
+    return user ? JSON.parse(user) : null
+  }
+
   const [currentUser, setCurrentUser] = useState(() => {
     const user = localStorage.getItem('user');
-    return user ? JSON.parse(user) : null;
+    const data = user ? JSON.parse(user) : null
+    return readUser(data.username);
   });
 
   const login = (username, password) => {
-    const user = {
-      username,
-      password,
-      sortOrder: 'popular',
-      favoriteGenre: 12,
-      voiceType: 'Spanish Female',
-    };
+    const user = readUser(username)
 
     localStorage.setItem('user', JSON.stringify(user));
     setCurrentUser(user);
@@ -37,13 +37,22 @@ export const AuthProvider = ({ children }) => {
       sortOrder,
       favoriteGenre,
       voiceType,
+      history: {}
     };
 
     localStorage.setItem(username, JSON.stringify(user));
   };
 
-  const readUser = (username) => {
-    return localStorage.getItem(username)
+  const addToHistory = (user, id) => {
+    const data = readUser(user.username)
+    data.history[id] = 1
+    localStorage.setItem(user.username, JSON.stringify(data));
+  }
+
+  const removeHistory = (user, id) => {
+    const data = readUser(user.username)
+    data.history = {}
+    localStorage.setItem(user.username, JSON.stringify(data));
   }
 
   const value = {
@@ -52,6 +61,8 @@ export const AuthProvider = ({ children }) => {
     logout,
     register,
     readUser,
+    addToHistory,
+    removeHistory
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
