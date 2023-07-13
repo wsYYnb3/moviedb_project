@@ -45,8 +45,13 @@ export const AuthProvider = ({ children }) => {
 
   const addToHistory = (user, id) => {
     const data = readUser(user.username)
-    console.log(data, user, data.username)
     data.history[id] = 1
+    localStorage.setItem(user.username, JSON.stringify(data));
+  }
+
+  const removeHistory = (user, id) => {
+    const data = readUser(user.username)
+    data.history = {}
     localStorage.setItem(user.username, JSON.stringify(data));
   }
 
@@ -56,7 +61,8 @@ export const AuthProvider = ({ children }) => {
     logout,
     register,
     readUser,
-    addToHistory
+    addToHistory,
+    removeHistory
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
