@@ -114,7 +114,7 @@
       padding: 1em;
     }
   }
-  
+
   .login-container {
     display: flex;
     justify-content: center;
@@ -158,3 +158,6 @@
     color: var(--primary-color);
   }
   
+  .signup-form-field {
+    min-width: 50%;
+  }
