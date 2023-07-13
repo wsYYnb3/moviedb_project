@@ -2,8 +2,16 @@ import Tab from 'react-bootstrap/Tab';
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import Input from './Input'
+import TMDBService from '../services/TMDBService.js'
+import { useEffect, useState } from 'react';
 
 function FormPage2({changeHandler, inputs}) {
+  const [genres, setGenres] = useState([])
+  useEffect(() => {
+    TMDBService.getMovieGenres()
+      .then((response) => {setGenres(response.genres);console.log(response.genres)})
+      .catch((error) => console.error(error));
+  }, [])
   return (
     <>
       <Row>
@@ -28,7 +36,7 @@ function FormPage2({changeHandler, inputs}) {
         <Col md="auto" className="signup-form-field">
           <Input 
             name="Favorite genre" 
-            options={["comedy", "drama"]}
+            options={genres}
             onChange={changeHandler} 
             inputs={inputs}
             >
