@@ -17,7 +17,7 @@ function FormPage4({changeHandler, inputs}) {
         <Col md="auto" className="signup-form-field">
           <Input 
             name="Choose a voice for screen reader" 
-            options={["English", "Spanish"]}
+            options={window.responsiveVoice.voicecollection}
             onChange={changeHandler} 
             inputs={inputs}
             >

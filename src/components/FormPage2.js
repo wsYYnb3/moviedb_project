@@ -26,7 +26,6 @@ function FormPage2({changeHandler, inputs}) {
           <Input 
             name="Favorite language" 
             onChange={changeHandler} 
-            minLength="2" 
             inputs={inputs}
             >
           </Input>

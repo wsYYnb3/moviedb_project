@@ -4,9 +4,10 @@ import ToggleButton from 'react-bootstrap/ToggleButton'
 import ToggleButtonGroup from 'react-bootstrap/ToggleButtonGroup'
 
 function Input({type, name, placeholder, options, required, onChange, minLength, inputs}) {
+  console.log(inputs[name]?.error, name)
   return (
     <Form.Group className="mb-3" controlId={name}>
-      <InputGroup>
+      <InputGroup hasValidation>
         <InputGroup.Text id="basic-addon1">{name}</InputGroup.Text>  
         {
           type=="radio"?(
@@ -48,6 +49,8 @@ function Input({type, name, placeholder, options, required, onChange, minLength,
               variant="light"
               value={inputs[name]?.value}
               required={required}
+              isInvalid={inputs[name]?.error}
+              isValid={inputs[name]?.value&&inputs[name]?.error==''}
               minLength={minLength}/>
           )
         }

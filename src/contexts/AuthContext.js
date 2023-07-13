@@ -39,8 +39,7 @@ export const AuthProvider = ({ children }) => {
       voiceType,
     };
 
-    localStorage.setItem('user', JSON.stringify(user));
-    setCurrentUser(user);
+    localStorage.setItem(username, JSON.stringify(user));
   };
 
   const value = {
