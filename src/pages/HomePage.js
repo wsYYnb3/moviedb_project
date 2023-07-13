@@ -2,6 +2,7 @@ import React, { useEffect, useState, useContext } from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
 import TMDBService from '../services/TMDBService';
 import MovieCard from '../components/MovieCard';
+import { useAuth } from '../contexts/AuthContext';
 
 function HomePage() {
   const [popularMovies, setPopularMovies] = useState([]);
@@ -9,9 +10,10 @@ function HomePage() {
   const [genreMovies, setGenreMovies] = useState([]);
   const [upcomingMovies, setUpcomingMovies] = useState([]);
 
-  const [isLoggedIn, setIsLoggedIn] = useState(true);
-  const [favoriteGenre, setFavoriteGenre] = useState(12); 
-  const [sortOrder, setSortOrder] = useState('upcoming');
+  const { currentUser } = useAuth();
+
+  const favoriteGenre = currentUser?.favoriteGenre || null;
+  const sortOrder = currentUser?.sortOrder || 'upcoming';
 
   useEffect(() => {
     TMDBService.getPopularMovies()
@@ -21,15 +23,15 @@ function HomePage() {
     TMDBService.getTopRatedMovies()
       .then(response => setTopRatedMovies(response.results))
       .catch(error => console.error(error));
-
+    if(favoriteGenre){
     TMDBService.getMoviesByGenre(favoriteGenre)
       .then(response => setGenreMovies(response.results))
       .catch(error => console.error(error));
-
+  }
     TMDBService.getUpcomingMovies()
       .then(response => setUpcomingMovies(response.results))
       .catch(error => console.error(error));
-  }, [favoriteGenre]);
+  }, [favoriteGenre, currentUser]);
 
   const renderMovies = (movies, title) => (
     <>
@@ -72,7 +74,7 @@ function HomePage() {
 
   return (
     <Container>
-      {isLoggedIn ? moviesToRender() : renderMovies(upcomingMovies, "Upcoming Movies")}
+      {currentUser ? moviesToRender() : renderMovies(upcomingMovies, "Upcoming Movies")}
     </Container>
   );
 }
