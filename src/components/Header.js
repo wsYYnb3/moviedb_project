@@ -31,9 +31,6 @@ const Header = () => {
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="mr-auto">
-          <Nav.Link as={Link} to="/movies">
-            <FontAwesomeIcon icon={faFilm} /> Movies
-          </Nav.Link>
           {!currentUser ? (
             <>
               <Nav.Link as={Link} to="/login">

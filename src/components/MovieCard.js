@@ -10,7 +10,7 @@ const MovieCard = ({ movie }) => {
   return (
     <Link to={`/movies/${movie.id}`}>
       <Card className="mb-4">
-        <Card.Img variant="top" src={moviePoster(movie.poster_path)} alt={movie.title} />
+        <Card.Img variant="top" src={movie.poster_path ? moviePoster(movie.poster_path):null} alt={movie.title} />
         <Card.Body>
           <Card.Title>{movie.title}</Card.Title>
           <Card.Text>
