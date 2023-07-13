@@ -49,7 +49,7 @@ function Input({type, name, placeholder, options, required, onChange, minLength,
               variant="light"
               value={inputs[name]?.value}
               required={required}
-              isInvalid={inputs[name]?.error!=''}
+              isInvalid={inputs[name]?.error}
               isValid={inputs[name]?.value&&inputs[name]?.error==''}
               minLength={minLength}/>
           )

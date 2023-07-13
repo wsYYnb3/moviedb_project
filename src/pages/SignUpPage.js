@@ -11,6 +11,8 @@ import Form from 'react-bootstrap/Form'
 import Tabs from 'react-bootstrap/Tabs';
 import Tab from 'react-bootstrap/Tab';
 import { useState, useRef } from 'react'
+import { useAuth } from '../contexts/AuthContext';
+import { useNavigate } from 'react-router-dom';
 
 function SignUpPage() {
   const [inputs, setInputs] = useState({
@@ -32,6 +34,8 @@ function SignUpPage() {
     }
   });
   const [page, setPage] = useState(1);
+  const { register } = useAuth();
+  const navigate = useNavigate();
 
   function confirmPassword(){
     if(inputs[1]["Password"].value!=this.value)
@@ -41,8 +45,13 @@ function SignUpPage() {
 
   function formSubmit(event){
     event.preventDefault()
-    setInputs({})
-    event.target.reset()
+    register(
+      inputs[1]['Username'].value, 
+      inputs[1]['Password'].value, 
+      inputs[3]['What do you want to see in the home page?'].value,
+      inputs[2]['Favorite genre'].value,
+      inputs[4]['Choose a voice for screen reader'].value)
+    navigate('/'); 
   }
 
   function reportValidity(){
