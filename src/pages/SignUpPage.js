@@ -20,15 +20,15 @@ function SignUpPage() {
       'Confirm password': {name: 'Confirm password', value: '', error: '', required: true, validation: confirmPassword}
     },
     2: {
-      'Username': {value: '', error: '', validation: ()=>false},
-      'Password': {value: '', error: ''},
+      'Favorite language': {value: '', error: ''},
+      'Favorite genre': {value: '', error: ''},
     },
     3: {
-      'Username': {value: '', error: '', validation: ()=>false},
+      'What do you want to see in the home page?': {value: '', error: ''},
     },
 
     4: {
-      'Username': {value: '', error: '', validation: ()=>false},
+      'Choose a voice for screen reader': {value: '', error: ''},
     }
   });
   const [page, setPage] = useState(1);
