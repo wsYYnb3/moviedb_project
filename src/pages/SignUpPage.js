@@ -10,7 +10,7 @@ import Button from 'react-bootstrap/Button'
 import Form from 'react-bootstrap/Form'
 import Tabs from 'react-bootstrap/Tabs';
 import Tab from 'react-bootstrap/Tab';
-import { useState, useRef } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import { useAuth } from '../contexts/AuthContext';
 import { useNavigate } from 'react-router-dom';
 
@@ -34,8 +34,16 @@ function SignUpPage() {
     }
   });
   const [page, setPage] = useState(1);
+  let users = [];
   const { register, readUser } = useAuth();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    (async ()=>{
+      const response = await fetch('https://jsonplaceholder.typicode.com/users')
+      users = await response.json()
+    })()
+  }, [])
 
   function confirmPassword(){
     if(inputs[1]["Password"].value!=this.value){
@@ -47,6 +55,10 @@ function SignUpPage() {
   function checkUserExists(){
     if(readUser(this.value)){
       return `Username ${this.value} has already been taken`
+    }
+    for(const u of users){
+      if(u.username==this.value)
+        return `Username ${this.value} has already been taken`
     }
     return ''
   }
@@ -102,7 +114,7 @@ function SignUpPage() {
     }
   }
 
-  function changeHandler(event) {
+  async function changeHandler(event) {
     const newInputs = {...inputs}
     const name = event.target.name
     newInputs[page][name].value = event.target.value
