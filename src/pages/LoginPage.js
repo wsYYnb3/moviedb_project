@@ -8,6 +8,7 @@ import { useAuth } from '../contexts/AuthContext';
 function LoginPage() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
   const { login } = useAuth();
 
   const navigate = useNavigate(); 
@@ -15,11 +16,14 @@ function LoginPage() {
   const handleLogin = (e) => {
     e.preventDefault();
 
-    login(username, password);
+    if(login(username, password)){
+      setUsername('');
+      setPassword('');
+      navigate('/'); 
+    } else {
+      setError('Incorrect password or username')
+    }
 
-    setUsername('');
-    setPassword('');
-    navigate('/'); 
   };
 
   return (
@@ -49,6 +53,9 @@ function LoginPage() {
               required 
             />
             <FontAwesomeIcon icon={faLock} className="form-icon" />
+            <Form.Text className="text-danger">
+              {error}
+            </Form.Text>
           </Form.Group>
 
           <Button variant="outline-success" type="submit" className="login-btn">

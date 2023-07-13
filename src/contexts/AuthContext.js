@@ -20,9 +20,12 @@ export const AuthProvider = ({ children }) => {
 
   const login = (username, password) => {
     const user = readUser(username)
+    if(!user) return false
+    if(user.password!=password) return false
 
     localStorage.setItem('user', JSON.stringify(user));
     setCurrentUser(user);
+    return true
   };
 
   const logout = () => {
