@@ -42,11 +42,16 @@ export const AuthProvider = ({ children }) => {
     localStorage.setItem(username, JSON.stringify(user));
   };
 
+  const readUser = (username) => {
+    return localStorage.getItem(username)
+  }
+
   const value = {
     currentUser,
     login,
     logout,
     register,
+    readUser,
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
