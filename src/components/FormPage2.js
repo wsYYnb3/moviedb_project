@@ -9,7 +9,7 @@ function FormPage2({changeHandler, inputs}) {
   const [genres, setGenres] = useState([])
   useEffect(() => {
     TMDBService.getMovieGenres()
-      .then((response) => {setGenres(response.genres);console.log(response.genres)})
+      .then((response) => setGenres(response.genres))
       .catch((error) => console.error(error));
   }, [])
   return (
