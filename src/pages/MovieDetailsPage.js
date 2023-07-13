@@ -5,8 +5,7 @@ import MovieDetails from '../components/MovieDetails';
 import ImageGallery from '../components/ImageGallery';
 import MovieCard from '../components/MovieCard';
 import { Container, Row, Col } from 'react-bootstrap';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlay, faPause, faStop } from '@fortawesome/free-solid-svg-icons';
+import TextToSpeech from '../components/TextToSpeech';
 
 const MovieDetailsPage = () => {
   const { id } = useParams();
@@ -54,7 +53,7 @@ const MovieDetailsPage = () => {
         <h2>Reviews</h2>
         {reviews.map((review) => (
           <div key={review.id}>
-            <p>{review.content}</p>
+            <p>{review.content}<TextToSpeech text={review.content} /> </p>
           </div>
         ))}
       </Container>

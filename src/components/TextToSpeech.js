@@ -1,30 +1,29 @@
 import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlay, faPause, faStop, faVolumeUp } from '@fortawesome/free-solid-svg-icons';
-import ResponsiveVoice from 'responsivevoice';
 
 const TextToSpeech = ({ text }) => {
   const [isSpeaking, setIsSpeaking] = useState(false);
 
   const handleSpeak = () => {
-    ResponsiveVoice.speak(text, undefined, {
+    window.responsiveVoice.speak(text, undefined, {
       onstart: () => setIsSpeaking(true),
       onend: () => setIsSpeaking(false),
     });
   };
 
   const handlePause = () => {
-    ResponsiveVoice.pause();
+    window.responsiveVoice.pause();
     setIsSpeaking(false);
   };
 
   const handleResume = () => {
-    ResponsiveVoice.resume();
+    window.responsiveVoice.resume();
     setIsSpeaking(true);
   };
 
   const handleStop = () => {
-    ResponsiveVoice.cancel();
+    window.responsiveVoice.cancel();
     setIsSpeaking(false);
   };
 
@@ -32,13 +31,13 @@ const TextToSpeech = ({ text }) => {
     <div>
       {isSpeaking ? (
         <>
-          <FontAwesomeIcon icon={faPause} onClick={handlePause} className="mr-2" />
-          <FontAwesomeIcon icon={faStop} onClick={handleStop} className="mr-2" />
+          <FontAwesomeIcon icon={faPause} onClick={handlePause} className="mr-2" style={{cursor: "pointer", margin: '2px'}} />
+          <FontAwesomeIcon icon={faStop} onClick={handleStop} className="mr-2" style={{cursor: "pointer", margin: '2px'}} />
         </>
       ) : (
         <>
-          <FontAwesomeIcon icon={faPlay} onClick={handleSpeak} className="mr-2" />
-          <FontAwesomeIcon icon={faVolumeUp} onClick={handleSpeak} className="mr-2" />
+          <FontAwesomeIcon icon={faPlay} onClick={handleSpeak} className="mr-2" style={{cursor: "pointer", margin: '2px'}} />
+          <FontAwesomeIcon icon={faVolumeUp} onClick={handleResume} className="mr-2" style={{cursor: "pointer", margin: '2px'}} />
         </>
       )}
     </div>
