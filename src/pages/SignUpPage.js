@@ -110,10 +110,10 @@ function SignUpPage() {
           <Tab eventKey="2" title="Movies preferences">
             <FormPage2 changeHandler={changeHandler} inputs={inputs} />
           </Tab>
-          <Tab eventKey="3" title="Contact">
+          <Tab eventKey="3" title="Main page preferences">
             <FormPage3 changeHandler={changeHandler} inputs={inputs} />
           </Tab>
-          <Tab eventKey="4" title="Contact">
+          <Tab eventKey="4" title="Screen reader preferences">
             <FormPage4 changeHandler={changeHandler} inputs={inputs} />
           </Tab>
         </Tabs>
