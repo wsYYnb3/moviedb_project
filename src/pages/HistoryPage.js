@@ -7,18 +7,20 @@ import { useAuth } from '../contexts/AuthContext';
 function HistoryPage() {
   const [movies, setMovies] = useState([]);
 
-  const { currentUser } = useAuth();
+  const { currentUser, readUser } = useAuth();
 
-  const history = currentUser?.history || null;
-
+  const history = readUser(currentUser.username).history || null;
 
   useEffect(() => {
-    setMovies([])
-    for(const movie in history){
-      TMDBService.getMovieDetails(movie) 
-        .then(response => {setMovies((movies) => [...movies, response])})
-        .catch(error => console.error(error));
-    }
+    (async ()=>{
+      const newMovies = []
+      for(const movie in history){
+        const response = await TMDBService.getMovieDetails(movie) 
+        newMovies.push(response)
+      }
+      console.log(newMovies)
+      setMovies(newMovies)
+    })()
   }, []);
 
   return (
