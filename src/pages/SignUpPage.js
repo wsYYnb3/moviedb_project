@@ -17,7 +17,7 @@ import { useNavigate } from 'react-router-dom';
 function SignUpPage() {
   const [inputs, setInputs] = useState({
     1: {
-      'Username': {name: 'Username', minLength: 2, value: '', error: '', required: true},
+      'Username': {name: 'Username', minLength: 2, value: '', error: '', required: true, validation: checkUserExists},
       'Password': {name: 'Password', value: '', error: '', required: true},
       'Confirm password': {name: 'Confirm password', value: '', error: '', required: true, validation: confirmPassword}
     },
@@ -38,8 +38,16 @@ function SignUpPage() {
   const navigate = useNavigate();
 
   function confirmPassword(){
-    if(inputs[1]["Password"].value!=this.value)
+    if(inputs[1]["Password"].value!=this.value){
       return 'Password confimation must match Password value.'
+    }
+    return ''
+  }
+
+  function checkUserExists(){
+    if(localStorage.getItem(this.value)){
+      return `Username ${this.value} has already been taken`
+    }
     return ''
   }
 
