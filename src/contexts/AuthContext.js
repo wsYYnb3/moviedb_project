@@ -51,7 +51,11 @@ export const AuthProvider = ({ children }) => {
 
   const removeHistory = (user, id) => {
     const data = readUser(user.username)
-    data.history = {}
+    if(id){
+      delete data.history[id]
+    } else {
+      data.history = {}
+    }
     localStorage.setItem(user.username, JSON.stringify(data));
   }
 
