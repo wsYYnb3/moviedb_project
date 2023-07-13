@@ -1,12 +1,22 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlay, faPause, faStop, faVolumeUp } from '@fortawesome/free-solid-svg-icons';
+import { useAuth } from '../contexts/AuthContext';
 
 const TextToSpeech = ({ text }) => {
   const [isSpeaking, setIsSpeaking] = useState(false);
+  const [voiceType, setVoiceType] = useState('UK English Female');
+
+  const { currentUser } = useAuth(); 
+
+  useEffect(() => {
+    if(currentUser && currentUser.voiceType) {
+      setVoiceType(currentUser.voiceType);
+    }
+  }, [currentUser]);
 
   const handleSpeak = () => {
-    window.responsiveVoice.speak(text, undefined, {
+    window.responsiveVoice.speak(text, voiceType, {
       onstart: () => setIsSpeaking(true),
       onend: () => setIsSpeaking(false),
     });

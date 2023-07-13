@@ -114,8 +114,50 @@
       padding: 1em;
     }
   }
-  
 
+  .login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 0;
+  }
+  
+  .login-wrapper {
+    background-color: var(--card-color);
+    color: var(--primary-color);
+    padding: 20px;
+    border-radius: 5px;
+    width: 100%;
+    max-width: 350px;
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+  }
+  
+  .login-form {
+    position: relative;
+  }
+  
+  .form-icon {
+    position: absolute;
+    right: 10px;
+    top: 40px;
+    color: var(--primary-color);
+  }
+  
+  .login-btn {
+    width: 100%;
+    margin-top: 20px;
+    border-color: var(--accent-color);
+    color: var(--primary-color);
+  }
+  
+  .login-btn:hover,
+  .login-btn:focus {
+    background-color: var(--accent-color);
+    border-color: var(--accent-color);
+    color: var(--primary-color);
+  }
+  
   .signup-form-field {
     min-width: 50%;
   }
