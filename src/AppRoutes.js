@@ -12,9 +12,9 @@ export default function AppRoutes() {
 
   return (
     <Routes>
+      <Route path="/signup" element={<SignUpPage />} />
       <Route path="/" element={<HomePage />} />
       <Route path="/login" element={<LoginPage />} />
-      <Route path="/signup" element={<SignUpPage />} />
       <Route path="/search" element={<SearchPage />} />
       <Route path="/movies/:id" element={<MovieDetailsPage />} />
       <Route path="/history" element={<HistoryPage />} />
