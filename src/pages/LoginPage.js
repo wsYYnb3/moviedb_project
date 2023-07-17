@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Container, Form, Button } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser, faLock } from '@fortawesome/free-solid-svg-icons';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 
 function LoginPage() {
@@ -12,6 +12,8 @@ function LoginPage() {
   const { login } = useAuth();
 
   const navigate = useNavigate(); 
+  const [searchParams, setSearchParams] = useSearchParams()
+  const redirect = searchParams.get("redirect")
 
   const handleLogin = (e) => {
     e.preventDefault();
@@ -19,7 +21,11 @@ function LoginPage() {
     if(login(username, password)){
       setUsername('');
       setPassword('');
-      navigate('/'); 
+      if(redirect){
+        navigate(redirect)
+      } else {
+        navigate(-1); 
+      }
     } else {
       setError('Incorrect password or username')
     }
