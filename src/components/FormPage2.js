@@ -5,7 +5,7 @@ import Input from './Input'
 import TMDBService from '../services/TMDBService.js'
 import { useEffect, useState } from 'react';
 
-function FormPage2({changeHandler, inputs}) {
+function FormPage2({changeHandler, inputs, setScreenReaders}) {
   const [genres, setGenres] = useState([])
   const [languages, setLanguages] = useState([])
   useEffect(() => {
@@ -16,6 +16,20 @@ function FormPage2({changeHandler, inputs}) {
       .then((response) => setLanguages(response))
       .catch((error) => console.error(error));
   }, [])
+
+  const formatResult = (item) => {
+    return (
+      <>
+        <span style={{ display: 'block', textAlign: 'left' }}>{item.english_name}/{item.name} ({item.iso_639_1})</span>
+      </>
+    )
+  }
+
+  const handleOnSelect = (item) => {
+    inputs[2]["Favorite language"].value=item.iso_639_1
+    setScreenReaders(window.responsiveVoice.getVoices().filter((e)=>e.name.includes(item.english_name)))
+  }
+
   return (
     <>
       <Row>
@@ -32,8 +46,11 @@ function FormPage2({changeHandler, inputs}) {
             onChange={changeHandler} 
             inputs={inputs[2]}
             type="autocomplete"
+            onSelect={handleOnSelect}
+            setScreenReaders={setScreenReaders}
+            formatResult={formatResult}
             options={languages}
-            >
+          >
           </Input>
         </Col>
       </Row>
@@ -44,7 +61,7 @@ function FormPage2({changeHandler, inputs}) {
             options={genres}
             onChange={changeHandler} 
             inputs={inputs[2]}
-            >
+          >
           </Input>
         </Col>
       </Row>
