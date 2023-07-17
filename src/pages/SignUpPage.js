@@ -124,6 +124,7 @@ function SignUpPage() {
 
   return (
     <Container className="mt-4">
+      <div className="signup-wrapper">
       <Form onSubmit={formSubmit} onInvalid={changeHandler}>
         <Tabs
           defaultActiveKey="1"
@@ -150,8 +151,9 @@ function SignUpPage() {
           <Col md="auto">
             {page>1?(
               <Button 
+                variant="outline-success"
                 onClick={(e)=>changePage(e,-1)}
-                className="m-1"
+                className="m-1 login-btn"
               >
                 Previous page
               </Button>
@@ -160,8 +162,9 @@ function SignUpPage() {
           <Col md="auto">
             {page>1?(
               <Button 
+                variant="outline-success"
                 type="submit"
-                className="m-1"
+                className="m-1 login-btn"
               >
                 Submit
               </Button>
@@ -170,8 +173,9 @@ function SignUpPage() {
           <Col md="auto">
             {page<4?(
               <Button 
+                variant="outline-success"
                 onClick={(e)=>changePage(e)}
-                className="m-1"
+                className="m-1 login-btn"
               >
                 Next page
               </Button>
@@ -179,6 +183,7 @@ function SignUpPage() {
           </Col>
         </Row>
       </Form>
+      </div>
     </Container>
   );
 }
