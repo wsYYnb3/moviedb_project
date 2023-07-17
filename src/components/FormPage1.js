@@ -11,7 +11,6 @@ function FormPage1({changeHandler, inputs}) {
           <h1>Sign up</h1>
           <p>1 - Login info</p>
         </div>
-        <hr />
       </Row>
       <Row className="justify-content-md-center">
         <Col md="auto" className="signup-form-field">

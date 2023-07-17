@@ -15,15 +15,15 @@ function Input({type, name, placeholder, options, required, onChange, minLength,
   }
   return (
     <Form.Group className="mb-3" controlId={name}>
+      <Form.Label>{name}</Form.Label>
       <InputGroup hasValidation>
-        <InputGroup.Text id="basic-addon1">{name}</InputGroup.Text>  
         {
           type=="autocomplete"?(
             <ReactSearchAutocomplete
               items={options}
-              styling={{borderRadius: "5px", height: "2.3em"}}
+              styling={{borderRadius: "5px", height: "38px"}}
               showIcon={false}
-              className="w-50 z-3"
+              className="z-3"
             />
           ):
             type=="radio"?(

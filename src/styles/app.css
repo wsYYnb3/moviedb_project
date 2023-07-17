@@ -132,6 +132,14 @@
     max-width: 350px;
     box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
   }
+
+  .signup-wrapper {
+    background-color: var(--card-color);
+    color: var(--primary-color);
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+  }
   
   .login-form {
     position: relative;
@@ -160,4 +168,19 @@
   
   .signup-form-field {
     min-width: 50%;
+  }
+
+  .signup-form-field .input-group>div {
+    min-width: 100%;
+  }
+
+  .signup-form-field div input {
+    min-width: 95%;
+    padding: 6px 36px 6px 12px;
+  }
+
+  .nav-pills .nav-link.active {
+    color: var(--primary-color);
+    background-color: var(--accent-color);
+    border: 1px solid var(--accent-color);
   }
