@@ -10,11 +10,12 @@ function HistoryPage() {
   const { currentUser, readUser, removeHistory } = useAuth();
 
   let history = readUser(currentUser.username).history || null;
+  const language = currentUser?.language || 'en';
 
   async function loadMovies(){
     const newMovies = []
     for(const movie in history){
-      const response = await TMDBService.getMovieDetails(movie)
+      const response = await TMDBService.getMovieDetails(movie, language)
       newMovies.push(response)
     }
     setMovies(newMovies)

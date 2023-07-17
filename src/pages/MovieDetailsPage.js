@@ -20,21 +20,22 @@ const MovieDetailsPage = () => {
     addToHistory(currentUser, id)
   }
 
+  const language = currentUser?.language || 'en';
 
   useEffect(() => {
-    TMDBService.getMovieDetails(id) 
+    TMDBService.getMovieDetails(id, language) 
       .then(response => setMovie(response))
       .catch(error => console.error(error));
 
-    TMDBService.getMovieImages(id)
+    TMDBService.getMovieImages(id, language)
       .then(response => setImages(response.backdrops)) 
       .catch(error => console.error(error));
 
-    TMDBService.getMovieRecommendations(id)
+    TMDBService.getMovieRecommendations(id, language)
       .then(response => setRecommendations(response.results))
       .catch(error => console.error(error));
 
-    TMDBService.getReviews(id)
+    TMDBService.getReviews(id, language)
       .then(response => setReviews(response.results))
       .catch(error => console.error(error));
   }, [id]);

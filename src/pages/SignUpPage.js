@@ -70,7 +70,8 @@ function SignUpPage() {
       inputs[1]['Password'].value, 
       inputs[3]['What do you want to see in the home page?'].value,
       inputs[2]['Favorite genre'].value,
-      inputs[4]['Choose a voice for screen reader'].value)
+      inputs[4]['Choose a voice for screen reader'].value,
+      inputs[2]['Favorite language'].value)
     navigate('/'); 
   }
 
