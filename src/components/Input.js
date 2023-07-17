@@ -9,10 +9,15 @@ function Input({type, name, placeholder, options, required, onChange, minLength,
   const formatResult = (item) => {
     return (
       <>
-        <span style={{ display: 'block', textAlign: 'left' }}>{item.name}</span>
+        <span style={{ display: 'block', textAlign: 'left' }}>{item.english_name}/{item.name} ({item.iso_639_1})</span>
       </>
     )
   }
+
+  const handleOnSelect = (item) => {
+    inputs[name].value=item.iso_639_1
+  }
+
   return (
     <Form.Group className="mb-3" controlId={name}>
       <Form.Label>{name}</Form.Label>
@@ -23,7 +28,17 @@ function Input({type, name, placeholder, options, required, onChange, minLength,
               items={options}
               styling={{borderRadius: "5px", height: "38px"}}
               showIcon={false}
+              name={name}
+              value={inputs[name].value}
+              formatResult={formatResult}
               className="z-3"
+              onSelect={handleOnSelect}
+              resultStringKeyName="english_name"
+              fuseOptions={{
+                keys: [
+                "name",
+                "english_name",
+              ]}}
             />
           ):
             type=="radio"?(

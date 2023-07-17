@@ -5,6 +5,7 @@ import TMDBService from '../services/TMDBService';
 import MovieCard from '../components/MovieCard';
 import GenreFilter from '../components/GenreFilter';
 import SortDropdown from '../components/SortDropdown';
+import { useAuth } from '../contexts/AuthContext';
 import { sortItems } from '../services/TMDBService';
 
 
@@ -17,16 +18,19 @@ const SearchPage = () => {
   const [genres, setGenres] = useState([]);
   const [sortMovies, setSortMovies] = useState('');
 
+  const { currentUser } = useAuth();
+  const language = currentUser?.language || 'en';
+
 
   useEffect(() => {
-    TMDBService.getMovieGenres()
+    TMDBService.getMovieGenres(language)
       .then((response) => setGenres(response.genres))
       .catch((error) => console.error(error));
   }, []);
 
   useEffect(() => {
     if (query) {
-      TMDBService.searchMovies(query)
+      TMDBService.searchMovies(query, language)
         .then((response) => setSearchResults(response.results))
         .catch((error) => console.error(error));
     }

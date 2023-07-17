@@ -33,13 +33,14 @@ export const AuthProvider = ({ children }) => {
     setCurrentUser(null);
   };
 
-  const register = (username, password, sortOrder, favoriteGenre, voiceType) => {
+  const register = (username, password, sortOrder, favoriteGenre, voiceType, language) => {
     const user = {
       username,
       password,
       sortOrder,
       favoriteGenre,
       voiceType,
+      language,
       history: {}
     };
 

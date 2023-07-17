@@ -30,7 +30,7 @@ function FormPage2({changeHandler, inputs}) {
           <Input 
             name="Favorite language" 
             onChange={changeHandler} 
-            inputs={inputs}
+            inputs={inputs[2]}
             type="autocomplete"
             options={languages}
             >
@@ -43,7 +43,7 @@ function FormPage2({changeHandler, inputs}) {
             name="Favorite genre" 
             options={genres}
             onChange={changeHandler} 
-            inputs={inputs}
+            inputs={inputs[2]}
             >
           </Input>
         </Col>

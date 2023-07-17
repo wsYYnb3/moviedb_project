@@ -14,21 +14,22 @@ function HomePage() {
 
   const favoriteGenre = currentUser?.favoriteGenre || null;
   const sortOrder = currentUser?.sortOrder || 'upcoming';
+  const language = currentUser?.language || 'en';
 
   useEffect(() => {
-    TMDBService.getPopularMovies()
+    TMDBService.getPopularMovies(language)
       .then(response => setPopularMovies(response.results))
       .catch(error => console.error(error));
 
-    TMDBService.getTopRatedMovies()
+    TMDBService.getTopRatedMovies(language)
       .then(response => setTopRatedMovies(response.results))
       .catch(error => console.error(error));
     if(favoriteGenre){
-    TMDBService.getMoviesByGenre(favoriteGenre)
+    TMDBService.getMoviesByGenre(favoriteGenre, language)
       .then(response => setGenreMovies(response.results))
       .catch(error => console.error(error));
   }
-    TMDBService.getUpcomingMovies()
+    TMDBService.getUpcomingMovies(language)
       .then(response => setUpcomingMovies(response.results))
       .catch(error => console.error(error));
   }, [favoriteGenre, currentUser]);
