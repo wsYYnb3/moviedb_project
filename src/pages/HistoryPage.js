@@ -3,14 +3,24 @@ import { Container, Row, Col, Button} from 'react-bootstrap';
 import TMDBService from '../services/TMDBService';
 import MovieCard from '../components/MovieCard';
 import { useAuth } from '../contexts/AuthContext';
+import { useNavigate } from 'react-router-dom';
 
 function HistoryPage() {
   const [movies, setMovies] = useState([]);
 
   const { currentUser, readUser, removeHistory } = useAuth();
 
-  let history = readUser(currentUser.username).history || null;
-  const language = currentUser?.language || 'en';
+  let history = null;
+  let language = 'en'
+
+  const navigate = useNavigate(); 
+  if(!currentUser){
+    navigate('/login?redirect=/history'); 
+  } else {
+    history = readUser(currentUser.username).history;
+    language = currentUser.language;
+  }
+
 
   async function loadMovies(){
     const newMovies = []
