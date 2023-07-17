@@ -5,18 +5,7 @@ import ToggleButtonGroup from 'react-bootstrap/ToggleButtonGroup'
 import { ReactSearchAutocomplete } from 'react-search-autocomplete'
 
 
-function Input({type, name, placeholder, options, required, onChange, minLength, inputs}) {
-  const formatResult = (item) => {
-    return (
-      <>
-        <span style={{ display: 'block', textAlign: 'left' }}>{item.english_name}/{item.name} ({item.iso_639_1})</span>
-      </>
-    )
-  }
-
-  const handleOnSelect = (item) => {
-    inputs[name].value=item.iso_639_1
-  }
+function Input({type, name, placeholder, options, required, onChange, minLength, inputs, onSelect, formatResult }) {
 
   return (
     <Form.Group className="mb-3" controlId={name}>
@@ -32,7 +21,7 @@ function Input({type, name, placeholder, options, required, onChange, minLength,
               value={inputs[name].value}
               formatResult={formatResult}
               className="z-3"
-              onSelect={handleOnSelect}
+              onSelect={onSelect}
               resultStringKeyName="english_name"
               fuseOptions={{
                 keys: [

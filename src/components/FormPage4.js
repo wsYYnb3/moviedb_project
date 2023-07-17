@@ -3,7 +3,7 @@ import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import Input from './Input'
 
-function FormPage4({changeHandler, inputs}) {
+function FormPage4({changeHandler, inputs, screenReaders}) {
   return (
     <>
       <Row>
@@ -17,7 +17,7 @@ function FormPage4({changeHandler, inputs}) {
         <Col md="auto" className="signup-form-field">
           <Input 
             name="Choose a voice for screen reader" 
-            options={window.responsiveVoice.getVoices()}
+            options={screenReaders}
             onChange={changeHandler} 
             inputs={inputs}
             >

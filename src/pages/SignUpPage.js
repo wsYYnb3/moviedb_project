@@ -31,8 +31,9 @@ function SignUpPage() {
 
     4: {
       'Choose a voice for screen reader': {value: '', error: ''},
-    }
+    },
   });
+  const [screenReaders, setScreenReaders] = useState(window.responsiveVoice.getVoices());
   const [page, setPage] = useState(1);
   let users = [];
   const { register, readUser } = useAuth();
@@ -110,6 +111,7 @@ function SignUpPage() {
   }
 
   function selectPage(p){
+    console.log(inputs)
     if(reportValidity()){
       setPage(p)
     }
@@ -136,16 +138,27 @@ function SignUpPage() {
           onSelect={selectPage}
         >
           <Tab eventKey="1" title="Login info">
-            <FormPage1 changeHandler={changeHandler} inputs={inputs} />
+            <FormPage1 
+              changeHandler={changeHandler} 
+              inputs={inputs} 
+            />
           </Tab>
           <Tab eventKey="2" title="Movies preferences">
-            <FormPage2 changeHandler={changeHandler} inputs={inputs} />
+            <FormPage2 
+              changeHandler={changeHandler} 
+              inputs={inputs} 
+              setScreenReaders={setScreenReaders} 
+            />
           </Tab>
           <Tab eventKey="3" title="Main page preferences">
             <FormPage3 changeHandler={changeHandler} inputs={inputs} />
           </Tab>
           <Tab eventKey="4" title="Screen reader preferences">
-            <FormPage4 changeHandler={changeHandler} inputs={inputs} />
+            <FormPage4 
+              changeHandler={changeHandler} 
+              inputs={inputs} 
+              screenReaders={screenReaders} 
+            />
           </Tab>
         </Tabs>
         <Row className="justify-content-md-center">
