@@ -11,7 +11,7 @@ import SortDropdown from '../components/SortDropdown';
 function HistoryPage() {
   const [movies, setMovies] = useState([]);
   const [filterMovies, setFilterMovies] = useState('all');
-  const [sortMovies, setSortMovies] = useState('');
+  const [sortMovies, setSortMovies] = useState('viewDate');
   const [genres, setGenres] = useState([]);
 
   const { currentUser, readUser, removeHistory } = useAuth();
@@ -39,6 +39,8 @@ function HistoryPage() {
           newGenres.push(genre);
         }
       });
+
+      response.viewDate=history[movie]
 
       newMovies.push(response)
     }
@@ -69,7 +71,7 @@ function HistoryPage() {
     <Container>
       <div className="d-flex justify-content-between align-items-center mb-1">
       <h2 className="my-3">History</h2>
-      <SortDropdown sort={sortMovies} setSort={setSortMovies} items={movies} setItems={setMovies} />
+      <SortDropdown sort={sortMovies} setSort={setSortMovies} items={movies} setItems={setMovies} hasViewDate />
       </div>
       <GenreFilter genres={genres} filter={filterMovies} setFilter={(filter) =>  setFilterMovies(filter)} />
         {filteredMovies.length > 0 ? (

@@ -9,9 +9,10 @@ const sortMap = {
     mostVoted: 'Most Voted',
     alphabetical: 'A-Z',
     chronological: 'New arrivals',
+    viewDate: 'Recently viewed',
 };
 
-const SortDropdown = ({ sort, setSort }) => (
+const SortDropdown = ({ sort, setSort, hasViewDate }) => (
   <Dropdown onSelect={(eventKey) => setSort(eventKey)}>
     <Dropdown.Toggle variant="success" id="dropdown-basic" style={{backgroundColor: '#242424', borderColor: '#8b1804'}}>
         <FontAwesomeIcon icon={faSort} /> Sort by: {sortMap[sort]}
@@ -22,6 +23,7 @@ const SortDropdown = ({ sort, setSort }) => (
       <Dropdown.Item eventKey='mostVoted'>Most Voted</Dropdown.Item>
       <Dropdown.Item eventKey='alphabetical'>A-Z</Dropdown.Item>
       <Dropdown.Item eventKey='chronological'>New arrivals</Dropdown.Item>
+      { hasViewDate? (<Dropdown.Item eventKey='viewDate'>Recently viewed</Dropdown.Item>): null }
     </Dropdown.Menu>
   </Dropdown>
 );
