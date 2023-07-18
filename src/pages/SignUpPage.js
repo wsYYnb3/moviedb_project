@@ -111,7 +111,6 @@ function SignUpPage() {
   }
 
   function selectPage(p){
-    console.log(inputs)
     if(reportValidity()){
       setPage(p)
     }

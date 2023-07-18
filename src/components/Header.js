@@ -1,16 +1,19 @@
-import React, { useState } from 'react';
-import { Navbar, Nav, FormControl, Button } from 'react-bootstrap';
-import { Link, useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { Navbar, Nav, FormControl, Button, Form, InputGroup } from 'react-bootstrap';
+import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFilm, faSearch, faSignInAlt, faHistory, faUser, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 import { useAuth } from '../contexts/AuthContext';
 
 const Header = () => {
   const [query, setQuery] = useState('');
+  const [searchParams, setSearchParams] = useSearchParams()
   const navigate = useNavigate();
   const { currentUser, logout } = useAuth();
+  const queryParam = searchParams.get("q")
 
-  const handleSearchClick = () => {
+  const handleSearch = (e) => {
+    e.preventDefault()
     const searchQuery = query.trim();
     if (searchQuery !== '') {
       setQuery('');
@@ -18,19 +21,40 @@ const Header = () => {
     }
   };
 
+  useEffect(() => {
+    setQuery(queryParam || '')
+  }, [searchParams]);
+
   const handleLogout = () => {
     logout();
     navigate('/');
   };
 
   return (
-    <Navbar bg="dark" variant="dark" expand="lg" className="mb-3">
-      <Navbar.Brand as={Link} to="/">
+    <Navbar bg="dark" variant="dark" expand="lg" className="mb-3 p-2">
+      <Navbar.Brand as={Link} to="/" className="ms-4">
         <FontAwesomeIcon icon={faFilm} /> Movie Database
       </Navbar.Brand>
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
-      <Navbar.Collapse id="basic-navbar-nav">
-        <Nav className="mr-auto">
+      <Navbar.Collapse id="search-navbar" >
+        <div className="mx-auto">
+        <Form action='#' onSubmit={handleSearch}>
+          <InputGroup>
+            <FormControl
+              type="text"
+              placeholder="Search"
+              className="mr-sm-2"
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+            />
+            <Button variant="light" type="submit">
+              <FontAwesomeIcon icon={faSearch} />
+            </Button>
+          </InputGroup>
+        </Form>
+        </div>
+        <div>
+        <Nav className="me-4">
           {!currentUser ? (
             <>
               <Nav.Link as={Link} to="/login">
@@ -51,18 +75,7 @@ const Header = () => {
             </>
           )}
         </Nav>
-        <div className="d-flex">
-          <FormControl
-            type="text"
-            placeholder="Search"
-            className="mr-sm-2"
-            value={query}
-            onChange={(e) => setQuery(e.target.value)}
-          />
-          <Button variant="outline-success" onClick={handleSearchClick} style={{ marginLeft: '10px' }}>
-            <FontAwesomeIcon icon={faSearch} />
-          </Button>
-        </div>
+          </div>
       </Navbar.Collapse>
     </Navbar>
   );
