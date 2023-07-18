@@ -7,7 +7,7 @@ import GenreFilter from '../components/GenreFilter';
 import SortDropdown from '../components/SortDropdown';
 import { useAuth } from '../contexts/AuthContext';
 import { sortItems } from '../services/TMDBService';
-
+import CustomPagination from '../components/CustomPagination';
 
 const useQuery = () => new URLSearchParams(useLocation().search);
 
@@ -17,6 +17,9 @@ const SearchPage = () => {
   const [filterMovies, setFilterMovies] = useState('all');
   const [genres, setGenres] = useState([]);
   const [sortMovies, setSortMovies] = useState('');
+
+  const [totalPages, setTotalPages] = useState(0);
+  const [page, setPage] = useState(1);
 
   const { currentUser } = useAuth();
   const language = currentUser?.language || 'en';
@@ -28,13 +31,24 @@ const SearchPage = () => {
       .catch((error) => console.error(error));
   }, []);
 
+  
   useEffect(() => {
     if (query) {
-      TMDBService.searchMovies(query, language)
-        .then((response) => setSearchResults(response.results))
+      TMDBService.searchMovies(query, language, page)
+        .then((response) => {
+          setSearchResults(response.results);
+          setTotalPages(response.total_pages);  
+        })
         .catch((error) => console.error(error));
     }
-  }, [query]);
+  }, [query, page]);
+
+  const handlePageChange = (pageNumber) => {
+    if (pageNumber >= 1 && pageNumber <= totalPages) {
+      setPage(pageNumber);
+    }
+  };
+
 
   const filteredMovies =
     filterMovies === 'all'
@@ -52,7 +66,7 @@ const SearchPage = () => {
             <h2>Search results for "{query}"</h2>
             <SortDropdown sort={sortMovies} setSort={setSortMovies} items={searchResults} setItems={setSearchResults} />
           </div>
-          <GenreFilter genres={genres} filter={filterMovies} setFilter={setFilterMovies} />
+          <GenreFilter genres={genres} filter={filterMovies} setFilter={(filter) => { setFilterMovies(filter); setPage(1); }} />
           {filteredMovies.length > 0 ? (
             <Row>
               {sortedMovies.map((movie) => (
@@ -66,6 +80,11 @@ const SearchPage = () => {
           )}
         </Col>
       </Row>
+      <CustomPagination 
+        currentPage={page}
+        totalPages={totalPages}
+        handlePageChange={handlePageChange}
+      />
     </Container>
   );
 };
