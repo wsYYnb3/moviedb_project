@@ -57,19 +57,22 @@ const Header = () => {
         <Nav className="me-4">
           {!currentUser ? (
             <>
-              <Nav.Link as={Link} to="/login">
+              <Nav.Link className="mx-1" as={Link} to="/login">
                 <FontAwesomeIcon icon={faSignInAlt} /> Login
               </Nav.Link>
-              <Nav.Link as={Link} to="/signup">
+              <Nav.Link className="mx-1" as={Link} to="/signup">
                 <FontAwesomeIcon icon={faUser} /> Signup
               </Nav.Link>
             </>
           ) : (
             <>
-              <Nav.Link as={Link} to="/history">
+              <Navbar.Text className="mx-1">
+                Logged as: {currentUser.username}
+              </Navbar.Text>
+              <Nav.Link className="mx-1" as={Link} to="/history">
                 <FontAwesomeIcon icon={faHistory} /> History
               </Nav.Link>
-              <Nav.Link onClick={handleLogout}>
+              <Nav.Link className="mx-1" onClick={handleLogout}>
                 <FontAwesomeIcon icon={faSignOutAlt} /> Logout
               </Nav.Link>
             </>

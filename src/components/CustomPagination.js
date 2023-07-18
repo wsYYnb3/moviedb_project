@@ -28,7 +28,7 @@ const CustomPagination = ({currentPage, totalPages, handlePageChange}) => {
   }
 
   const paginationBasic = (
-    <div>
+    <div className="d-flex justify-content-center">
       <Pagination>
         <Pagination.First onClick={() => handlePageChange(1)} disabled={currentPage === 1} />
         <Pagination.Prev onClick={() => handlePageChange(currentPage - 1)} disabled={currentPage === 1} />
