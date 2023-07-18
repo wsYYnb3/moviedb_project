@@ -49,7 +49,7 @@ export const AuthProvider = ({ children }) => {
 
   const addToHistory = (user, id) => {
     const data = readUser(user.username)
-    data.history[id] = 1
+    data.history[id] = new Date()
     localStorage.setItem(user.username, JSON.stringify(data));
   }
 

@@ -45,6 +45,8 @@ export function sortItems(items, sort) {
             return 0;
           }
         });
+      case 'viewDate':
+        return items.sort((a, b) => new Date(b.viewDate) - new Date(a.viewDate));
       default:
         return items;
     }

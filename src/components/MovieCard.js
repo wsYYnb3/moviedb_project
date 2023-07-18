@@ -18,9 +18,12 @@ const MovieCard = ({ movie, eraseFunction }) => {
             {movie.vote_average.toFixed(1)}
           </Card.Text>
           {eraseFunction?(
+            <>
             <Button onClick={eraseFunction} variant="primary">
             <FontAwesomeIcon icon={faTrash} className="mr-1" />
 </Button>
+              <Card.Text>Last view date: {(new Date(movie.viewDate)).toLocaleString()}</Card.Text>
+              </>
           ):null}
         </Card.Body>
       </Card>
