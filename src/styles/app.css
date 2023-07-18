@@ -86,6 +86,11 @@
     color: var(--tertiary-color);
     border-color: var(--accent-color);
   }
+
+  .input-group>button {
+    border-left: 0;
+    border-color: var(--accent-color);
+  }
   
   h2 {
     margin-bottom: 1em;
