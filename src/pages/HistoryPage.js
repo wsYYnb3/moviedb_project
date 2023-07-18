@@ -4,9 +4,15 @@ import TMDBService from '../services/TMDBService';
 import MovieCard from '../components/MovieCard';
 import { useAuth } from '../contexts/AuthContext';
 import { useNavigate } from 'react-router-dom';
+import { sortItems } from '../services/TMDBService';
+import GenreFilter from '../components/GenreFilter';
+import SortDropdown from '../components/SortDropdown';
 
 function HistoryPage() {
   const [movies, setMovies] = useState([]);
+  const [filterMovies, setFilterMovies] = useState('all');
+  const [sortMovies, setSortMovies] = useState('');
+  const [genres, setGenres] = useState([]);
 
   const { currentUser, readUser, removeHistory } = useAuth();
 
@@ -21,14 +27,24 @@ function HistoryPage() {
     language = currentUser.language;
   }
 
-
   async function loadMovies(){
     const newMovies = []
+    const newGenres = []
+
     for(const movie in history){
       const response = await TMDBService.getMovieDetails(movie, language)
+
+      response.genres.forEach(genre => {
+        if (!newGenres.find(existingGenre => existingGenre.id === genre.id)) {
+          newGenres.push(genre);
+        }
+      });
+
       newMovies.push(response)
     }
-    setMovies(newMovies)
+
+    setGenres(newGenres);
+    setMovies(newMovies);
   }
 
   useEffect(() => {
@@ -42,19 +58,36 @@ function HistoryPage() {
     loadMovies()
   }
 
+  const filteredMovies =
+    filterMovies === 'all'
+    ? movies
+    : movies.filter((movie) => movie.genres.filter((g)=>g.id==filterMovies).length>0);
+
+  const sortedMovies = sortItems(filteredMovies, sortMovies);
+
   return (
     <Container>
+      <div className="d-flex justify-content-between align-items-center mb-1">
       <h2 className="my-3">History</h2>
+      <SortDropdown sort={sortMovies} setSort={setSortMovies} items={movies} setItems={setMovies} />
+      </div>
+      <GenreFilter genres={genres} filter={filterMovies} setFilter={(filter) =>  setFilterMovies(filter)} />
+        {filteredMovies.length > 0 ? (
+          <>
       <Row md="5" className="mb-3">
         <Button onClick={()=>{removeHistory(currentUser);setMovies([])}}>Erase history</Button>
       </Row>
       <Row>
-        {movies.map(movie => (
+        {sortedMovies.map(movie => (
           <Col xs={12} sm={6} md={4} lg={3} key={movie.id}>
             <MovieCard movie={movie} eraseFunction={(e)=>removeMovie(e,movie.id)} />
           </Col>
         ))}
       </Row>
+          </>
+          ) : (
+            <p>No movies found.</p>
+          )}
 
     </Container>
   );
