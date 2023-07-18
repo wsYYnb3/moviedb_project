@@ -209,6 +209,12 @@
     background-color: var(--accent-color);
     border-color: var(--accent-color);
   }
+
+  .pagination > li.active > span {
+    color: var(--primary-color);
+    background-color: var(--accent-color);
+    border-color: var(--accent-color);
+  }
   
   .pagination > li.disabled > a,
   .pagination > li.disabled > a:hover,
