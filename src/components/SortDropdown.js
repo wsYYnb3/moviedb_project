@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSort } from '@fortawesome/free-solid-svg-icons';
 
 const sortMap = {
+    default: 'Default',
     popular: 'Popular',
     topRated: 'Top Rated',
     mostVoted: 'Most Voted',
@@ -17,6 +18,7 @@ const SortDropdown = ({ sort, setSort }) => (
         <FontAwesomeIcon icon={faSort} /> Sort by: {sortMap[sort]}
     </Dropdown.Toggle>
     <Dropdown.Menu>
+      <Dropdown.Item eventKey='default'>Default</Dropdown.Item>
       <Dropdown.Item eventKey='popular'>Popular</Dropdown.Item>
       <Dropdown.Item eventKey='topRated'>Top Rated</Dropdown.Item>
       <Dropdown.Item eventKey='mostVoted'>Most Voted</Dropdown.Item>
