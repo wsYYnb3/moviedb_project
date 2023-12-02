@@ -2,7 +2,7 @@ import { MovieDb } from 'moviedb-promise';
 
 const moviedb = new MovieDb('9e1941239712bac06fec3f28c0d09b25');
 
-export TMDBService = {
+const TMDBService = {
   getPopularMovies: (language) => moviedb.moviePopular({ language }),
   getMovieDetails: (id, language) => moviedb.movieInfo({ id, language }), 
   getPopularTVShows: (language) => moviedb.tvPopular({ language }), 
