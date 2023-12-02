@@ -17,7 +17,6 @@ const SearchPage = () => {
   const [filterMovies, setFilterMovies] = useState('all');
   const [genres, setGenres] = useState([]);
   const [sortMovies, setSortMovies] = useState('');
-
   const [totalPages, setTotalPages] = useState(0);
   const [page, setPage] = useState(1);
 
