@@ -2,7 +2,7 @@ import { MovieDb } from 'moviedb-promise';
 
 const moviedb = new MovieDb('9e1941239712bac06fec3f28c0d09b25');
 
-export default {
+export TMDBService = {
   getPopularMovies: (language) => moviedb.moviePopular({ language }),
   getMovieDetails: (id, language) => moviedb.movieInfo({ id, language }), 
   getPopularTVShows: (language) => moviedb.tvPopular({ language }), 
@@ -16,6 +16,7 @@ export default {
   getReviews: (id, language) => moviedb.movieReviews({ id, language }),
   getLanguages: (id, language) => moviedb.languages({ language }),
 };
+export default TMDBService;
 
 export function moviePoster(poster_path){
     return `https://image.tmdb.org/t/p/w500${poster_path}`;
