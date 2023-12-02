@@ -1,15 +1,14 @@
-import React from 'react';
-import { Container } from 'react-bootstrap';
-import { BrowserRouter as Router } from 'react-router-dom';  // <- Import Router here
-import Header from './components/Header';
-import AppRoutes from './AppRoutes';
-import {AuthProvider} from './contexts/AuthContext';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import './styles/app.css';
+import { Container } from "react-bootstrap";
+import { BrowserRouter as Router } from "react-router-dom"; // <- Import Router here
+import Header from "./components/Header";
+import AppRoutes from "./AppRoutes";
+import { AuthProvider } from "./contexts/AuthContext";
+import "bootstrap/dist/css/bootstrap.min.css";
+import "./styles/app.css";
 
 function App() {
   return (
-    <div className="App">
+    <div className='App'>
       <Router>
         <AuthProvider>
           <Header />

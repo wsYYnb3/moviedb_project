@@ -1,13 +1,12 @@
-import Tab from 'react-bootstrap/Tab';
-import Row from 'react-bootstrap/Row'
-import Col from 'react-bootstrap/Col'
-import Input from './Input'
-import TMDBService from '../services/TMDBService.js'
-import { useEffect, useState } from 'react';
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
+import Input from "./Input";
+import TMDBService from "../services/TMDBService.js";
+import { useEffect, useState } from "react";
 
-function FormPage2({changeHandler, inputs, setScreenReaders}) {
-  const [genres, setGenres] = useState([])
-  const [languages, setLanguages] = useState([])
+function FormPage2({ changeHandler, inputs, setScreenReaders }) {
+  const [genres, setGenres] = useState([]);
+  const [languages, setLanguages] = useState([]);
   useEffect(() => {
     TMDBService.getMovieGenres()
       .then((response) => setGenres(response.genres))
@@ -15,54 +14,58 @@ function FormPage2({changeHandler, inputs, setScreenReaders}) {
     TMDBService.getLanguages()
       .then((response) => setLanguages(response))
       .catch((error) => console.error(error));
-  }, [])
+  }, []);
 
   const formatResult = (item) => {
     return (
       <>
-        <span style={{ display: 'block', textAlign: 'left' }}>{item.english_name}/{item.name} ({item.iso_639_1})</span>
+        <span style={{ display: "block", textAlign: "left" }}>
+          {item.english_name}/{item.name} ({item.iso_639_1})
+        </span>
       </>
-    )
-  }
+    );
+  };
 
   const handleOnSelect = (item) => {
-    inputs[2]["Favorite language"].value=item.iso_639_1
-    setScreenReaders(window.responsiveVoice.getVoices().filter((e)=>e.name.includes(item.english_name)))
-  }
+    inputs[2]["Favorite language"].value = item.iso_639_1;
+    setScreenReaders(
+      window.responsiveVoice
+        .getVoices()
+        .filter((e) => e.name.includes(item.english_name))
+    );
+  };
 
   return (
     <>
       <Row>
-        <div className="text-center">
+        <div className='text-center'>
           <h1>Sign up</h1>
           <p>2 - Movies preferences</p>
         </div>
         <hr />
       </Row>
-      <Row className="justify-content-md-center">
-        <Col md="auto" className="signup-form-field">
-          <Input 
-            name="Favorite language" 
-            onChange={changeHandler} 
+      <Row className='justify-content-md-center'>
+        <Col md='auto' className='signup-form-field'>
+          <Input
+            name='Favorite language'
+            onChange={changeHandler}
             inputs={inputs[2]}
-            type="autocomplete"
+            type='autocomplete'
             onSelect={handleOnSelect}
             setScreenReaders={setScreenReaders}
             formatResult={formatResult}
             options={languages}
-          >
-          </Input>
+          ></Input>
         </Col>
       </Row>
-      <Row className="justify-content-md-center">
-        <Col md="auto" className="signup-form-field">
-          <Input 
-            name="Favorite genre" 
+      <Row className='justify-content-md-center'>
+        <Col md='auto' className='signup-form-field'>
+          <Input
+            name='Favorite genre'
             options={genres}
-            onChange={changeHandler} 
+            onChange={changeHandler}
             inputs={inputs[2]}
-          >
-          </Input>
+          ></Input>
         </Col>
       </Row>
     </>

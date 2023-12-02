@@ -1,59 +1,62 @@
-import { MovieDb } from 'moviedb-promise';
+import { MovieDb } from "moviedb-promise";
 
-const moviedb = new MovieDb('9e1941239712bac06fec3f28c0d09b25');
+const moviedb = new MovieDb("9e1941239712bac06fec3f28c0d09b25");
 
 const TMDBService = {
   getPopularMovies: (language) => moviedb.moviePopular({ language }),
-  getMovieDetails: (id, language) => moviedb.movieInfo({ id, language }), 
-  getPopularTVShows: (language) => moviedb.tvPopular({ language }), 
-  searchMovies: (query, language, page, with_genres ) => moviedb.searchMovie({ query, language, page, with_genres }),
-  getMoviesByGenre: (genreId, language) => moviedb.discoverMovie({ with_genres: genreId, language }),
+  getMovieDetails: (id, language) => moviedb.movieInfo({ id, language }),
+  getPopularTVShows: (language) => moviedb.tvPopular({ language }),
+  searchMovies: (query, language, page, with_genres) =>
+    moviedb.searchMovie({ query, language, page, with_genres }),
+  getMoviesByGenre: (genreId, language) =>
+    moviedb.discoverMovie({ with_genres: genreId, language }),
   getMovieGenres: (language) => moviedb.genreMovieList({ language }),
-  getMovieImages: (id, language) => moviedb.movieImages({ id}),
-  getMovieRecommendations: (id, language) => moviedb.movieRecommendations({ id, language }),
-  getUpcomingMovies:(language) => moviedb.upcomingMovies({ language }),
+  getMovieImages: (id, language) => moviedb.movieImages({ id }),
+  getMovieRecommendations: (id, language) =>
+    moviedb.movieRecommendations({ id, language }),
+  getUpcomingMovies: (language) => moviedb.upcomingMovies({ language }),
   getTopRatedMovies: (language) => moviedb.movieTopRated({ language }),
   getReviews: (id, language) => moviedb.movieReviews({ id, language }),
   getLanguages: (id, language) => moviedb.languages({ language }),
 };
 export default TMDBService;
 
-export function moviePoster(poster_path){
-    return `https://image.tmdb.org/t/p/w500${poster_path}`;
-};
+export function moviePoster(poster_path) {
+  return `https://image.tmdb.org/t/p/w500${poster_path}`;
+}
 
 export function sortItems(items, sort) {
-    switch (sort) {
-      case 'default':
-        return items;
-      case 'popular':
-        return [...items].sort((a, b) => a.popularity - b.popularity);
-      case 'topRated':
-        return [...items].sort((a, b) => b.vote_average - a.vote_average);
-      case 'mostVoted':
-        return [...items].sort((a, b) => b.vote_count - a.vote_count);
-      case 'chronological':
-        return [...items].sort((a,b) => {
-          const itemADate = new Date(a.release_date || a.first_air_date);
-          const itemBDate = new Date(b.release_date || b.first_air_date);
-          return itemBDate - itemADate;
-        });
-      case 'alphabetical':
-        return [...items].sort((a, b) => {
-          const itemA = a.title || a.name;
-          const itemB = b.title || b.name;
-          if (itemA && itemB) {
-            return itemA.localeCompare(itemB);
-          } else {
-            return 0;
-          }
-        });
-      case 'viewDate':
-        return items.sort((a, b) => new Date(b.viewDate) - new Date(a.viewDate));
-      default:
-        return items;
-    }
+  switch (sort) {
+    case "default":
+      return items;
+    case "popular":
+      return [...items].sort((a, b) => a.popularity - b.popularity);
+    case "topRated":
+      return [...items].sort((a, b) => b.vote_average - a.vote_average);
+    case "mostVoted":
+      return [...items].sort((a, b) => b.vote_count - a.vote_count);
+    case "chronological":
+      return [...items].sort((a, b) => {
+        const itemADate = new Date(a.release_date || a.first_air_date);
+        const itemBDate = new Date(b.release_date || b.first_air_date);
+        return itemBDate - itemADate;
+      });
+    case "alphabetical":
+      return [...items].sort((a, b) => {
+        const itemA = a.title || a.name;
+        const itemB = b.title || b.name;
+        if (itemA && itemB) {
+          return itemA.localeCompare(itemB);
+        } else {
+          return 0;
+        }
+      });
+    case "viewDate":
+      return items.sort((a, b) => new Date(b.viewDate) - new Date(a.viewDate));
+    default:
+      return items;
   }
+}
 /*
 complete function list
 Function

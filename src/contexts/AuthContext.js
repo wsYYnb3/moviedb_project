@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState } from 'react';
+import { createContext, useContext, useState } from "react";
 
 const AuthContext = createContext();
 
@@ -8,32 +8,39 @@ export const useAuth = () => {
 
 export const AuthProvider = ({ children }) => {
   const readUser = (username) => {
-    const user = localStorage.getItem(username)
-    return user ? JSON.parse(user) : null
-  }
+    const user = localStorage.getItem(username);
+    return user ? JSON.parse(user) : null;
+  };
 
   const [currentUser, setCurrentUser] = useState(() => {
-    const user = localStorage.getItem('user');
-    const data = user ? JSON.parse(user) : null
+    const user = localStorage.getItem("user");
+    const data = user ? JSON.parse(user) : null;
     return data ? readUser(data.username) : null;
   });
 
   const login = (username, password) => {
-    const user = readUser(username)
-    if(!user) return false
-    if(user.password!=password) return false
+    const user = readUser(username);
+    if (!user) return false;
+    if (user.password !== password) return false;
 
-    localStorage.setItem('user', JSON.stringify(user));
+    localStorage.setItem("user", JSON.stringify(user));
     setCurrentUser(user);
-    return true
+    return true;
   };
 
   const logout = () => {
-    localStorage.removeItem('user');
+    localStorage.removeItem("user");
     setCurrentUser(null);
   };
 
-  const register = (username, password, sortOrder, favoriteGenre, voiceType, language) => {
+  const register = (
+    username,
+    password,
+    sortOrder,
+    favoriteGenre,
+    voiceType,
+    language
+  ) => {
     const user = {
       username,
       password,
@@ -41,27 +48,27 @@ export const AuthProvider = ({ children }) => {
       favoriteGenre,
       voiceType,
       language,
-      history: {}
+      history: {},
     };
 
     localStorage.setItem(username, JSON.stringify(user));
   };
 
   const addToHistory = (user, id) => {
-    const data = readUser(user.username)
-    data.history[id] = new Date()
+    const data = readUser(user.username);
+    data.history[id] = new Date();
     localStorage.setItem(user.username, JSON.stringify(data));
-  }
+  };
 
   const removeHistory = (user, id) => {
-    const data = readUser(user.username)
-    if(id){
-      delete data.history[id]
+    const data = readUser(user.username);
+    if (id) {
+      delete data.history[id];
     } else {
-      data.history = {}
+      data.history = {};
     }
     localStorage.setItem(user.username, JSON.stringify(data));
-  }
+  };
 
   const value = {
     currentUser,
@@ -70,7 +77,7 @@ export const AuthProvider = ({ children }) => {
     register,
     readUser,
     addToHistory,
-    removeHistory
+    removeHistory,
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
