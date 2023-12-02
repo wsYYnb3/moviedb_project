@@ -27,7 +27,7 @@ const SearchPage = () => {
     TMDBService.getMovieGenres(language)
       .then((response) => setGenres(response.genres))
       .catch((error) => console.error(error));
-  }, []);
+  }, [language]);
 
   useEffect(() => {
     if (query) {
@@ -38,7 +38,7 @@ const SearchPage = () => {
         })
         .catch((error) => console.error(error));
     }
-  }, [query, page]);
+  }, [query, page, language]);
 
   const handlePageChange = (pageNumber) => {
     if (pageNumber >= 1 && pageNumber <= totalPages) {

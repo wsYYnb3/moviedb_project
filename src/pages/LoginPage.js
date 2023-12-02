@@ -12,7 +12,7 @@ function LoginPage() {
   const { login } = useAuth();
 
   const navigate = useNavigate();
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
   const redirect = searchParams.get("redirect");
 
   const handleLogin = (e) => {

@@ -32,7 +32,7 @@ function HomePage() {
     TMDBService.getUpcomingMovies(language)
       .then((response) => setUpcomingMovies(response.results))
       .catch((error) => console.error(error));
-  }, [favoriteGenre, currentUser]);
+  }, [favoriteGenre, currentUser, language]);
 
   const renderMovies = (movies, title) => (
     <>

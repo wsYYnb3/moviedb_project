@@ -1,7 +1,7 @@
 import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
 import { ReactSearchAutocomplete } from "react-search-autocomplete";
-import { React } from "react";
+
 function Input({
   type,
   name,
@@ -36,7 +36,7 @@ function Input({
         ) : type === "radio" ? (
           <div className='btn-group'>
             {options.map((o, i) => (
-              <React.Fragment key={i}>
+              <>
                 <input
                   type='radio'
                   key={i}
@@ -51,7 +51,7 @@ function Input({
                 <label className='btn btn-light' htmlFor={`radio-${i}`}>
                   {o}
                 </label>
-              </React.Fragment>
+              </>
             ))}
           </div>
         ) : options ? (

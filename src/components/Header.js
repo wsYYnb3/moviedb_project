@@ -21,7 +21,7 @@ import { useAuth } from "../contexts/AuthContext";
 
 const Header = () => {
   const [query, setQuery] = useState("");
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
   const navigate = useNavigate();
   const { currentUser, logout } = useAuth();
   const queryParam = searchParams.get("q");

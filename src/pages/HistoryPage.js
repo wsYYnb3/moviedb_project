@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { Container, Row, Col, Button } from "react-bootstrap";
 import TMDBService from "../services/TMDBService";
 import MovieCard from "../components/MovieCard";
@@ -27,7 +27,7 @@ function HistoryPage() {
     language = currentUser.language;
   }
 
-  async function loadMovies() {
+  const loadMovies = useCallback(async () => {
     const newMovies = [];
     const newGenres = [];
 
@@ -47,11 +47,11 @@ function HistoryPage() {
 
     setGenres(newGenres);
     setMovies(newMovies);
-  }
+  }, [history, language]);
 
   useEffect(() => {
     loadMovies();
-  }, [loadMovies]);
+  }, [loadMovies, currentUser]);
 
   function removeMovie(e, id) {
     e.preventDefault();
@@ -64,7 +64,8 @@ function HistoryPage() {
     filterMovies === "all"
       ? movies
       : movies.filter(
-          (movie) => movie.genres.filter((g) => g.id == filterMovies).length > 0
+          (movie) =>
+            movie.genres.filter((g) => g.id === filterMovies).length > 0
         );
 
   const sortedMovies = sortItems(filteredMovies, sortMovies);

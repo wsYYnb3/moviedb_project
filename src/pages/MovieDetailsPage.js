@@ -38,7 +38,7 @@ const MovieDetailsPage = () => {
     TMDBService.getReviews(id, language)
       .then((response) => setReviews(response.results))
       .catch((error) => console.error(error));
-  }, [id]);
+  }, [id, language]);
 
   return (
     <div>
